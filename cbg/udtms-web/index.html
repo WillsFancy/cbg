@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDTMS - Unified Digital Transaction Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <img src="assets/logo.svg" alt="UDTMS Logo">
+        </div>
+        <nav class="nav-menu">
+            <a href="#dashboard" class="nav-item active" data-page="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#transactions" class="nav-item" data-page="transactions">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="#reconciliation" class="nav-item" data-page="reconciliation">
+                <i class="fas fa-balance-scale"></i>
+                <span>Reconciliation</span>
+            </a>
+            <a href="#fraud-detection" class="nav-item" data-page="fraud">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Fraud Detection</span>
+            </a>
+            <a href="#customer-portal" class="nav-item" data-page="customer">
+                <i class="fas fa-users"></i>
+                <span>Customer Portal</span>
+            </a>
+            <a href="#api-integration" class="nav-item" data-page="api">
+                <i class="fas fa-plug"></i>
+                <span>API Integration</span>
+            </a>
+            <a href="#settings" class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search transactions..." id="globalSearch">
+                </div>
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notificationBadge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <span>Admin User</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Page -->
+        <div class="page-content active" id="dashboard-page">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-cedi-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Transactions</h3>
+                        <p class="stat-value" id="totalTransactions">0</p>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Successful</h3>
+                        <p class="stat-value" id="successfulTransactions">0</p>
+                        <span class="stat-change positive">+8.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Failed</h3>
+                        <p class="stat-value" id="failedTransactions">0</p>
+                        <span class="stat-change negative">-3.1%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Fraud Alerts</h3>
+                        <p class="stat-value" id="fraudAlerts">0</p>
+                        <span class="stat-change warning">3 Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="chart-container">
+                    <h3>Transaction Volume (Real-time)</h3>
+                    <canvas id="transactionChart"></canvas>
+                </div>
+                <div class="recent-activity">
+                    <h3>Recent Transactions</h3>
+                    <div class="activity-list" id="recentActivityList">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="platform-status">
+                <h3>Platform Status</h3>
+                <div class="platform-grid">
+                    <div class="platform-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Mobile Banking</h4>
+                        <span class="status online">Online</span>
+                        <p>Response Time: 120ms</p>
+                    </div>
+                    <div class="platform-card">
+                        <i class="fas fa-globe"></i>
+                        <h4>Internet Banking</h4>
+                        <span class="status online">Online</span>
+                        <p>Response Time: 98ms</p>
+                    </div>
+                    <div class="platform-card">
+                        <i class="fas fa-university"></i>
+                        <h4>Fintech APIs</h4>
+                        <span class="status online">Online</span>
+                        <p>Response Time: 156ms</p>
+                    </div>
+                    <div class="platform-card">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h4>Mobile Money</h4>
+                        <span class="status online">Online</span>
+                        <p>Response Time: 203ms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions Page -->
+        <div class="page-content" id="transactions-page">
+            <div class="page-header">
+                <h2>Real-time Transaction Monitoring</h2>
+                <button class="btn btn-primary" id="addTransactionBtn">
+                    <i class="fas fa-plus"></i> New Transaction
+                </button>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label>Date Range:</label>
+                    <input type="date" id="dateFrom" class="form-control">
+                    <input type="date" id="dateTo" class="form-control">
+                </div>
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select id="statusFilter" class="form-control">
+                        <option value="all">All</option>
+                        <option value="success">Success</option>
+                        <option value="pending">Pending</option>
+                        <option value="failed">Failed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Platform:</label>
+                    <select id="platformFilter" class="form-control">
+                        <option value="all">All</option>
+                        <option value="mobile">Mobile Banking</option>
+                        <option value="internet">Internet Banking</option>
+                        <option value="fintech">Fintech</option>
+                        <option value="momo">Mobile Money</option>
+                    </select>
+                </div>
+                <button class="btn btn-secondary" id="applyFilters">Apply Filters</button>
+                <button class="btn btn-outline" id="exportTransactions">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table" id="transactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date & Time</th>
+                            <th>Customer</th>
+                            <th>Platform</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Risk Score</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="transactionsPagination">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Reconciliation Page -->
+        <div class="page-content" id="reconciliation-page">
+            <div class="page-header">
+                <h2>Automated Reconciliation</h2>
+                <button class="btn btn-primary" id="runReconciliationBtn">
+                    <i class="fas fa-sync"></i> Run Reconciliation
+                </button>
+            </div>
+
+            <div class="reconciliation-summary">
+                <div class="recon-card">
+                    <h4>Mobile Money</h4>
+                    <div class="recon-stats">
+                        <p>Matched: <span class="matched" id="momoMatched">0</span></p>
+                        <p>Unmatched: <span class="unmatched" id="momoUnmatched">0</span></p>
+                        <p>Discrepancy: <span class="discrepancy" id="momoDiscrepancy">₵0</span></p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="momoProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="recon-card">
+                    <h4>Bank Transfers</h4>
+                    <div class="recon-stats">
+                        <p>Matched: <span class="matched" id="bankMatched">0</span></p>
+                        <p>Unmatched: <span class="unmatched" id="bankUnmatched">0</span></p>
+                        <p>Discrepancy: <span class="discrepancy" id="bankDiscrepancy">₵0</span></p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="bankProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="recon-card">
+                    <h4>Fintech Platforms</h4>
+                    <div class="recon-stats">
+                        <p>Matched: <span class="matched" id="fintechMatched">0</span></p>
+                        <p>Unmatched: <span class="unmatched" id="fintechUnmatched">0</span></p>
+                        <p>Discrepancy: <span class="discrepancy" id="fintechDiscrepancy">₵0</span></p>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="fintechProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reconciliation-details">
+                <h3>Unmatched Transactions</h3>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date</th>
+                                <th>Platform</th>
+                                <th>Amount</th>
+                                <th>Issue Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="unmatchedTransactionsBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="reconciliation-log">
+                <h3>Reconciliation Log</h3>
+                <div class="log-container" id="reconciliationLog">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Fraud Detection Page -->
+        <div class="page-content" id="fraud-page">
+            <div class="page-header">
+                <h2>Fraud Detection & Alert System</h2>
+                <button class="btn btn-danger" id="viewAlertsBtn">
+                    <i class="fas fa-bell"></i> View All Alerts
+                </button>
+            </div>
+
+            <div class="fraud-overview">
+                <div class="fraud-stat-card high-risk">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>High Risk</h3>
+                    <p class="fraud-count" id="highRiskCount">0</p>
+                </div>
+                <div class="fraud-stat-card medium-risk">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Medium Risk</h3>
+                    <p class="fraud-count" id="mediumRiskCount">0</p>
+                </div>
+                <div class="fraud-stat-card low-risk">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Low Risk</h3>
+                    <p class="fraud-count" id="lowRiskCount">0</p>
+                </div>
+                <div class="fraud-stat-card blocked">
+                    <i class="fas fa-ban"></i>
+                    <h3>Blocked</h3>
+                    <p class="fraud-count" id="blockedCount">0</p>
+                </div>
+            </div>
+
+            <div class="fraud-alerts-section">
+                <h3>Active Fraud Alerts</h3>
+                <div class="alerts-container" id="fraudAlertsContainer">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="fraud-rules">
+                <h3>Fraud Detection Rules</h3>
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <h4>Velocity Check</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <p>Detects multiple transactions in short time periods</p>
+                        <div class="rule-config">
+                            <label>Threshold: <input type="number" value="5"> transactions per <input type="number" value="10"> minutes</label>
+                        </div>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <h4>Amount Anomaly</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <p>Flags transactions exceeding normal patterns</p>
+                        <div class="rule-config">
+                            <label>Threshold: <input type="number" value="200">% of average</label>
+                        </div>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <h4>Geo-location</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <p>Checks for impossible travel scenarios</p>
+                        <div class="rule-config">
+                            <label>Time window: <input type="number" value="2"> hours</label>
+                        </div>
+                    </div>
+                    <div class="rule-card">
+                        <div class="rule-header">
+                            <h4>Device Fingerprint</h4>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <p>Identifies suspicious device changes</p>
+                        <div class="rule-config">
+                            <label>Alert on: New device</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Portal Page -->
+        <div class="page-content" id="customer-page">
+            <div class="page-header">
+                <h2>Customer Self-Service Portal</h2>
+                <div class="search-customer">
+                    <input type="text" placeholder="Search customer by ID, name, or email..." id="customerSearch">
+                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="customer-info-section" id="customerInfoSection" style="display:none;">
+                <div class="customer-profile">
+                    <div class="profile-header">
+                        <div class="customer-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="customerName">-</h3>
+                            <p id="customerEmail">-</p>
+                            <p id="customerPhone">-</p>
+                        </div>
+                        <div class="profile-status">
+                            <span class="badge verified">Verified</span>
+                            <span class="badge active">Active</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customer-tabs">
+                    <button class="tab-btn active" data-tab="transactions">Transactions</button>
+                    <button class="tab-btn" data-tab="disputes">Disputes</button>
+                    <button class="tab-btn" data-tab="activity">Activity Log</button>
+                </div>
+
+                <div class="tab-content active" id="transactions-tab">
+                    <div class="customer-transactions">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customerTransactionsBody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="disputes-tab">
+                    <div class="disputes-section">
+                        <button class="btn btn-primary" id="newDisputeBtn">
+                            <i class="fas fa-plus"></i> File New Dispute
+                        </button>
+                        <div class="disputes-list" id="disputesList">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="activity-tab">
+                    <div class="activity-log" id="customerActivityLog">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Integration Page -->
+        <div class="page-content" id="api-page">
+            <div class="page-header">
+                <h2>API Integration & Management</h2>
+                <button class="btn btn-primary" id="addApiBtn">
+                    <i class="fas fa-plus"></i> Add API Endpoint
+                </button>
+            </div>
+
+            <div class="api-endpoints">
+                <h3>Connected APIs</h3>
+                <div class="api-grid">
+                    <div class="api-card">
+                        <div class="api-header">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h4>MTN Mobile Money</h4>
+                            <span class="status online">Active</span>
+                        </div>
+                        <div class="api-info">
+                            <p>Endpoint: https://api.mtn.com/v1/</p>
+                            <p>Last Sync: 2 mins ago</p>
+                            <p>Success Rate: 98.5%</p>
+                        </div>
+                        <div class="api-actions">
+                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon"><i class="fas fa-sync"></i></button>
+                            <button class="btn-icon"><i class="fas fa-chart-bar"></i></button>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-header">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h4>Airtel Money</h4>
+                            <span class="status online">Active</span>
+                        </div>
+                        
+                        <div class="api-info">
+                            <p>Endpoint: https://api.airtel.com/v2/</p>
+                            <p>Last Sync: 5 mins ago</p>
+                            <p>Success Rate: 97.2%</p>
+                        </div>
+                        <div class="api-actions">
+                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon"><i class="fas fa-sync"></i></button>
+                            <button class="btn-icon"><i class="fas fa-chart-bar"></i></button>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-header">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h4>Telecel Cash</h4>
+                            <span class="status online">Active</span>
+                        </div>
+                        <div class="api-info">
+                            <p>Endpoint: https://api.telecel.com/v1/</p>
+                            <p>Last Sync: 4 mins ago</p>
+                            <p>Success Rate: 96.8%</p>
+                        </div>
+                        <div class="api-actions">
+                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon"><i class="fas fa-sync"></i></button>
+                            <button class="btn-icon"><i class="fas fa-chart-bar"></i></button>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-header">
+                            <i class="fas fa-university"></i>
+                            <h4>Consolidated Bank Ghana API</h4>
+                            <span class="status online">Active</span>
+                        </div>
+                        <div class="api-info">
+                            <p>Endpoint: https://bank.api.com/v1/</p>
+                            <p>Last Sync: 1 min ago</p>
+                            <p>Success Rate: 99.1%</p>
+                        </div>
+                        <div class="api-actions">
+                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon"><i class="fas fa-sync"></i></button>
+                            <button class="btn-icon"><i class="fas fa-chart-bar"></i></button>
+                        </div>
+                    </div>
+                    <div class="api-card">
+                        <div class="api-header">
+                            <i class="fas fa-plug"></i>
+                            <h4>Stripe Payment API</h4>
+                            <span class="status online">Active</span>
+                        </div>
+                        <div class="api-info">
+                            <p>Endpoint: https://api.stripe.com/v1/</p>
+                            <p>Last Sync: 3 mins ago</p>
+                            <p>Success Rate: 99.8%</p>
+                        </div>
+                        <div class="api-actions">
+                            <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon"><i class="fas fa-sync"></i></button>
+                            <button class="btn-icon"><i class="fas fa-chart-bar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-logs">
+                <h3>API Activity Log</h3>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>API</th>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Status</th>
+                                <th>Response Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="apiLogsBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="api-webhooks">
+                <h3>Webhook Configuration</h3>
+                <div class="webhook-form">
+                    <input type="text" placeholder="Webhook URL" class="form-control">
+                    <select class="form-control">
+                        <option>Transaction Created</option>
+                        <option>Transaction Completed</option>
+                        <option>Transaction Failed</option>
+                        <option>Fraud Alert</option>
+                    </select>
+                    <button class="btn btn-primary">Add Webhook</button>
+                </div>
+                <div class="webhook-list" id="webhookList">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div class="page-content" id="settings-page">
+            <div class="page-header">
+                <h2>System Settings</h2>
+            </div>
+
+            <div class="settings-container">
+                <div class="settings-section">
+                    <h3>General Settings</h3>
+                    <div class="setting-item">
+                        <label>System Name</label>
+                        <input type="text" value="UDTMS" class="form-control">
+                    </div>
+                    <div class="setting-item">
+                        <label>Timezone</label>
+                        <select class="form-control">
+                            <option>UTC</option>
+                            <option>GMT+1</option>
+                            <option>GMT+2</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>Currency</label>
+                        <select class="form-control">
+                            <option selected>GHS (₵)</option>
+                            <option>USD ($)</option>
+                            <option>EUR (€)</option>
+                            <option>GBP (£)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Transaction Settings</h3>
+                    <div class="setting-item">
+                        <label>Default Transaction Limit</label>
+                        <input type="number" value="10000" class="form-control">
+                    </div>
+                    <div class="setting-item">
+                        <label>Auto-approve threshold</label>
+                        <input type="number" value="1000" class="form-control">
+                    </div>
+                    <div class="setting-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked>
+                            <span>Enable Real-time Monitoring</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>Security Settings</h3>
+                    <div class="setting-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked>
+                            <span>Enable Two-Factor Authentication</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked>
+                            <span>Enable Fraud Detection</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>Session Timeout (minutes)</label>
+                        <input type="number" value="30" class="form-control">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-large">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Transaction Details -->
+    <div class="modal" id="transactionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Transaction Details</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="transactionModalBody">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/transactions.js"></script>
+    <script src="js/reconciliation.js"></script>
+    <script src="js/fraud-detection.js"></script>
+    <script src="js/api-integration.js"></script>
+</body>
+</html>

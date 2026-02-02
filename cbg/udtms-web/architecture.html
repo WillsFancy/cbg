@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> CBG UDTMS - System Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        
+        .architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .layer {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .layer-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .component {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .component h3 {
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .component p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .features {
+            list-style: none;
+            margin-top: 8px;
+        }
+        
+        .features li {
+            font-size: 12px;
+            color: #64748b;
+            padding-left: 15px;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .data-flow {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+        }
+        
+        .data-flow h2 {
+            margin-bottom: 15px;
+        }
+        
+        .flow-steps {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .flow-step {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tech-stack {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+        
+        .tech-stack h2 {
+            color: #1e40af;
+            margin-bottom: 15px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .tech-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid #3b82f6;
+        }
+        
+        .tech-item strong {
+            display: block;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ UDTMS System Architecture</h1>
+        
+        <div class="architecture">
+            <!-- Presentation Layer -->
+            <div class="layer">
+                <div class="layer-title">
+                    🎨 Presentation Layer
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <h3>Dashboard</h3>
+                        <p>Real-time monitoring interface</p>
+                        <ul class="features">
+                            <li>Live statistics</li>
+                            <li>Transaction charts</li>
+                            <li>Platform status</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Transaction UI</h3>
+                        <p>Transaction management interface</p>
+                        <ul class="features">
+                            <li>Advanced filtering</li>
+                            <li>Search & export</li>
+                            <li>Details modal</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Reconciliation UI</h3>
+                        <p>Reconciliation interface</p>
+                        <ul class="features">
+                            <li>Progress tracking</li>
+                            <li>Issue resolution</li>
+                            <li>Activity logs</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Fraud UI</h3>
+                        <p>Fraud detection interface</p>
+                        <ul class="features">
+                            <li>Alert management</li>
+                            <li>Rule configuration</li>
+                            <li>Investigation tools</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Business Logic Layer -->
+            <div class="layer">
+                <div class="layer-title">
+                    ⚙️ Business Logic Layer
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <h3>Transaction Engine</h3>
+                        <p>Core transaction processing</p>
+                        <ul class="features">
+                            <li>Transaction validation</li>
+                            <li>Status management</li>
+                            <li>Risk calculation</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Reconciliation Engine</h3>
+                        <p>Automated matching system</p>
+                        <ul class="features">
+                            <li>Auto-matching</li>
+                            <li>Discrepancy detection</li>
+                            <li>Resolution workflow</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Fraud Detection</h3>
+                        <p>Fraud analysis algorithms</p>
+                        <ul class="features">
+                            <li>Velocity check</li>
+                            <li>Amount anomaly</li>
+                            <li>Geo-location</li>
+                            <li>Device fingerprint</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>API Manager</h3>
+                        <p>API integration handler</p>
+                        <ul class="features">
+                            <li>Connection monitoring</li>
+                            <li>Sync management</li>
+                            <li>Webhook handler</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Layer -->
+            <div class="layer">
+                <div class="layer-title">
+                    💾 Data Layer (Mock - Current)
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <h3>Transaction Data</h3>
+                        <p>Mock transaction storage</p>
+                        <ul class="features">
+                            <li>In-memory storage</li>
+                            <li>Data generation</li>
+                            <li>Real-time updates</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Reconciliation Data</h3>
+                        <p>Reconciliation records</p>
+                        <ul class="features">
+                            <li>Match records</li>
+                            <li>Discrepancy logs</li>
+                            <li>History tracking</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Fraud Data</h3>
+                        <p>Fraud alerts & rules</p>
+                        <ul class="features">
+                            <li>Alert storage</li>
+                            <li>Rule configuration</li>
+                            <li>Investigation logs</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>API Configuration</h3>
+                        <p>API endpoint data</p>
+                        <ul class="features">
+                            <li>Endpoint configs</li>
+                            <li>Performance metrics</li>
+                            <li>Activity logs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Integration Layer -->
+            <div class="layer">
+                <div class="layer-title">
+                    🔌 Integration Layer
+                </div>
+                <div class="components">
+                    <div class="component">
+                        <h3>Mobile Money</h3>
+                        <p>MTN,Telecel, Airtel integration</p>
+                        <ul class="features">
+                            <li>Transaction sync</li>
+                            <li>Balance inquiry</li>
+                            <li>Status updates</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Internet Banking</h3>
+                        <p>Bank API integration</p>
+                        <ul class="features">
+                            <li>Account management</li>
+                            <li>Transfer processing</li>
+                            <li>Transaction history</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Fintech APIs</h3>
+                        <p>Stripe, PayPal integration</p>
+                        <ul class="features">
+                            <li>Payment processing</li>
+                            <li>Webhook events</li>
+                            <li>Refund handling</li>
+                        </ul>
+                    </div>
+                    <div class="component">
+                        <h3>Webhooks</h3>
+                        <p>Event notification system</p>
+                        <ul class="features">
+                            <li>Event triggers</li>
+                            <li>Callback handling</li>
+                            <li>Retry logic</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-flow">
+            <h2>📊 Data Flow</h2>
+            <div class="flow-steps">
+                <div class="flow-step">1. User Input</div>
+                <div class="flow-step">→</div>
+                <div class="flow-step">2. Validation</div>
+                <div class="flow-step">→</div>
+                <div class="flow-step">3. Processing</div>
+                <div class="flow-step">→</div>
+                <div class="flow-step">4. Storage</div>
+                <div class="flow-step">→</div>
+                <div class="flow-step">5. Response</div>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <h2>💻 Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <strong>HTML5</strong>
+                    <small>Structure</small>
+                </div>
+                <div class="tech-item">
+                    <strong>CSS3</strong>
+                    <small>Styling</small>
+                </div>
+                <div class="tech-item">
+                    <strong>JavaScript ES6+</strong>
+                    <small>Logic</small>
+                </div>
+                <div class="tech-item">
+                    <strong>Chart.js</strong>
+                    <small>Visualization</small>
+                </div>
+                <div class="tech-item">
+                    <strong>Font Awesome</strong>
+                    <small>Icons</small>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">Launch Application →</a>
+        </div>
+    </div>
+</body>
+</html>
